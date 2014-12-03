@@ -47,7 +47,7 @@ class ReceptionRegistration extends CI_Controller
         $this->loadRegistration($patient);
       }
       else {
-        //TODO What does this do?
+        //Fill out the form with the patient information.
         $patient = $_POST;
 
         //Check to see if the patient ID was already set from the getPatient call above.
@@ -108,7 +108,7 @@ class ReceptionRegistration extends CI_Controller
     ));
 
     $headerData = array(
-      'title' => 'CQS - Patient Registration'
+      'title' => 'BugBuster Clinic - Patient Registration'
     );
 
     $this->load->view('header', $headerData);
@@ -138,7 +138,7 @@ class ReceptionRegistration extends CI_Controller
   $data['medications'] = $medications;
   $data['patient'] = $patient;
 
-  $this->load->view('patient_registration_view', $data);
+  $this->load->view('receptionregistration', $data);
 
   $this->load->view('footer');
 }

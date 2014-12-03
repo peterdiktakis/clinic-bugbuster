@@ -43,7 +43,7 @@ class ReceptionRAMQ extends CI_Controller {
         //the POST array.
         $this->session->set_flashdata('ramq', $_POST['ramq']);
         //Redirect the user to the Reception Registration page.
-        redirect("patientregistration", 'refresh');
+        redirect("receptionregistration", 'refresh');
       }
     }
   }

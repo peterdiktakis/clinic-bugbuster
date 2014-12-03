@@ -3,8 +3,7 @@
 </div>
 
 <div class ="well">
-	<?php echo form_open('receptionramq'); ?>
-	<div class='form' role='form'>
+	<?php echo form_open('receptionramq', array('role' => 'form')); ?>
 		<?php echo validation_errors(); ?>
 		<?php if ($added) {
 			//$added is a variable that comes from the header data.
@@ -21,5 +20,5 @@
 		<div class='form-group'>
 			<button type='submit' class='btn' value='Submit'>Continue <span class="glyphicon glyphicon-arrow-right"></span></button>
 		</div>
-	</div>
+	</form>
 </div>
