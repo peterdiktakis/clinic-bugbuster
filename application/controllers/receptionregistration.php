@@ -80,6 +80,7 @@ class ReceptionRegistration extends CI_Controller
 
   function getPatient($ramq)
   {
+    //Load the patient model.
     $this->load->model('patient');
 
     //Find the patient by their RAMQ number.
@@ -106,25 +107,31 @@ class ReceptionRegistration extends CI_Controller
       'url'
     ));
 
+    //Define the page title.
     $headerData = array(
       'title' => 'BugBuster Clinic - Patient Registration'
     );
 
+    //Load the header.
     $this->load->view('header', $headerData);
 
+    //Load the helper method to get the medications array.
     $this->load->helper('getmedications');
     $medications = getMedications();
 
+    //Add the patient information (if it exists) and medication list to the page data.
     $data['medications'] = $medications;
     $data['patient'] = $patient;
 
+    //Load the view sending in the data.
     $this->load->view('receptionregistration', $data);
 
+    //Load the footer.
     $this->load->view('footer');
   }
 
   function addToTriage($visitId) {
-    // create instance of the queue model
+    //Load the queue model.
     $this->load->model('queue');
     $inserted = $this->queue->addToQueue($visitId, 'TRIAGE');
     return $inserted;

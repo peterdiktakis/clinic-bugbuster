@@ -4,16 +4,16 @@ Class Patient extends CI_Model {
 	//CREATE
 	function createPatient($patient) {
 		$data = array(
-			'RAMQ_ID' => $patient['ramq'],
-			'FIRST_NAME' => $patient['firstName'],
-			'LAST_NAME' => $patient['lastName'],
-			'PHONE_HOME' => $patient['homePhone'],
-			'PHONE_EMERGENCY' => $patient['emergencyPhone'],
-			'PHYSICIAN' => $patient['primaryPhysician'],
-			'EXISTING_CONDITIONS' => $patient['existingConditions'],
-			'MEDICATION_1' => $patient['medication1'],
-			'MEDICATION_2' => $patient['medication2'],
-			'MEDICATION_3' => $patient['medication3'] );
+			'RAMQ_ID' => htmlentities(strip_tags($patient['ramq'])),
+			'FIRST_NAME' => htmlentities(strip_tags($patient['firstName'])),
+			'LAST_NAME' => htmlentities(strip_tags($patient['lastName'])),
+			'PHONE_HOME' => htmlentities(strip_tags($patient['homePhone'])),
+			'PHONE_EMERGENCY' => htmlentities(strip_tags($patient['emergencyPhone'])),
+			'PHYSICIAN' => htmlentities(strip_tags($patient['primaryPhysician'])),
+			'EXISTING_CONDITIONS' => htmlentities(strip_tags($patient['existingConditions'])),
+			'MEDICATION_1' => htmlentities(strip_tags($patient['medication1'])),
+			'MEDICATION_2' => htmlentities(strip_tags($patient['medication2'])),
+			'MEDICATION_3' => htmlentities(strip_tags($patient['medication3'])));
 
 			$result = $this->db->insert('PATIENT', $data);
 			$patient_id = $this->db->insert_id();
@@ -44,16 +44,16 @@ Class Patient extends CI_Model {
 		function updatePatient($patient, $patient_id) {
 
 			$data = array(
-				'RAMQ_ID' => $patient['ramq'],
-				'FIRST_NAME' => $patient['firstName'],
-				'LAST_NAME' => $patient['lastName'],
-				'PHONE_HOME' => $patient['homePhone'],
-				'PHONE_EMERGENCY' => $patient['emergencyPhone'],
-				'PHYSICIAN' => $patient['primaryPhysician'],
-				'EXISTING_CONDITIONS' => $patient['existingConditions'],
-				'MEDICATION_1' => $patient['medication1'],
-				'MEDICATION_2' => $patient['medication2'],
-				'MEDICATION_3' => $patient['medication3'] );
+				'RAMQ_ID' => htmlentities(strip_tags($patient['ramq'])),
+				'FIRST_NAME' => htmlentities(strip_tags($patient['firstName'])),
+				'LAST_NAME' => htmlentities(strip_tags($patient['lastName'])),
+				'PHONE_HOME' => htmlentities(strip_tags($patient['homePhone'])),
+				'PHONE_EMERGENCY' => htmlentities(strip_tags($patient['emergencyPhone'])),
+				'PHYSICIAN' => htmlentities(strip_tags($patient['primaryPhysician'])),
+				'EXISTING_CONDITIONS' => htmlentities(strip_tags($patient['existingConditions'])),
+				'MEDICATION_1' => htmlentities(strip_tags($patient['medication1'])),
+				'MEDICATION_2' => htmlentities(strip_tags($patient['medication2'])),
+				'MEDICATION_3' => htmlentities(strip_tags($patient['medication3'])));
 
 				$this->db->where('PATIENT_ID', $patient_id);
 				$this->db->update('PATIENT', $data);
