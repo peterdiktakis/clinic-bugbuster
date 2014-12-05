@@ -31,6 +31,13 @@ class Login extends CI_Controller
     }
 
   }
+
+  function logout()
+  {
+    $this->session->sess_destroy();
+    redirect('login', 'refresh');
+  }
+
   function getLogin($password)
   {
     $this->load->model('user');

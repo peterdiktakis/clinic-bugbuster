@@ -34,7 +34,7 @@
           <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('examination', 'Examination') . "</li>" : '' ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <?php echo ($this->session->userdata('logged_in')) ? "<li>" . anchor('logout', 'Logout') . "</li>" : '' ?>
+        <?php echo ($this->session->userdata('logged_in')) ? "<li>" . anchor('login/logout', 'Logout') . "</li>" : '' ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
