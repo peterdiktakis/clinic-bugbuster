@@ -9,8 +9,8 @@ Class Patient extends CI_Model {
 			'LAST_NAME' => $patient['lastName'],
 			'PHONE_HOME' => $patient['homePhone'],
 			'PHONE_EMERGENCY' => $patient['emergencyPhone'],
-			'PRIMARY_PHYSICIAN' => $patient['primaryPhysician'],
-			'EXISTING_CONDITIONS' => $patient['conditions'],
+			'PHYSICIAN' => $patient['primaryPhysician'],
+			'EXISTING_CONDITIONS' => $patient['existingConditions'],
 			'MEDICATION_1' => $patient['medication1'],
 			'MEDICATION_2' => $patient['medication2'],
 			'MEDICATION_3' => $patient['medication3'] );
@@ -49,8 +49,8 @@ Class Patient extends CI_Model {
 				'LAST_NAME' => $patient['lastName'],
 				'PHONE_HOME' => $patient['homePhone'],
 				'PHONE_EMERGENCY' => $patient['emergencyPhone'],
-				'PRIMARY_PHYSICIAN' => $patient['primaryPhysician'],
-				'EXISTING_CONDITIONS' => $patient['conditions'],
+				'PHYSICIAN' => $patient['primaryPhysician'],
+				'EXISTING_CONDITIONS' => $patient['existingConditions'],
 				'MEDICATION_1' => $patient['medication1'],
 				'MEDICATION_2' => $patient['medication2'],
 				'MEDICATION_3' => $patient['medication3'] );

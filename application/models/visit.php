@@ -9,8 +9,8 @@ Class Visit extends CI_Model {
 
 		$data = array(
 			'PATIENT_ID' => $patientId,
-			'TRIAGE_TIME' => null,
-			'EXAMINATION_TIME' => null
+			'TIME_TRIAGE' => null,
+			'TIME_EXAMINATION' => null
 		);
 
 		$insert = $this->db->insert('VISIT', $data);

@@ -49,7 +49,6 @@ class ReceptionRegistration extends CI_Controller
       else {
         //Fill out the form with the patient information.
         $patient = $_POST;
-
         //Check to see if the patient ID was already set from the getPatient call above.
         if (isset($patientId)) {
           //If so, we'll be updating the patient information.
@@ -58,14 +57,14 @@ class ReceptionRegistration extends CI_Controller
         //Otherwise, we're adding a new patient.
         else {
           //Add the new patient.
-          $patient_id = $this->addPatient($patient);
+          $patientId = $this->addPatient($patient);
         }
 
         //Now that we've figured out things with the patient, register this visit in the database.
         $visitId = $this->addVisit($patientId);
 
         //Add the patient to the triage queue.
-        $test = $this->addToTriage($visitId);
+        //$test = $this->addToTriage($visitId);
 
         //Setup the alert message to let the user know that the patient was successfully added to the queue.
         $message = $patient['firstName'] . " " . $patient['lastName'] . " was added to the triage queue";
@@ -74,7 +73,7 @@ class ReceptionRegistration extends CI_Controller
         $this->session->set_flashdata('change', $message);
 
         //Redirect back to the RAMQ registration page.
-        redirect("ramqregistration", 'refresh');
+        redirect("receptionramq", 'refresh');
       }
     }
   }
@@ -131,10 +130,10 @@ class ReceptionRegistration extends CI_Controller
     return $inserted;
   }
 
-  function addVisit($patient_id) {
+  function addVisit($patientId) {
     // create instance of visit model
     $this->load->model('visit');
-    $visitId = ($this->visit->addVisit($patient_id));
+    $visitId = ($this->visit->createVisit($patientId));
     return $visitId;
   }
 
@@ -143,7 +142,7 @@ class ReceptionRegistration extends CI_Controller
 
     $this->load->model('patient');
     // add the patient to the db using the model, returning the patient id.
-    $patient_id = ($this->patient->addPatient($patient));
+    $patient_id = ($this->patient->createPatient($patient));
     if ($patient_id) {
       return $patient_id;
     }
@@ -153,22 +152,16 @@ class ReceptionRegistration extends CI_Controller
 
   }
 
-  function updatePatient($patient, $patient_id) {
+  function updatePatient($patient, $patientId) {
     // create instance of user model
     $this->load->model('patient');
-    $updated = ($this->patient->updatePatient($patient, $patient_id));
+    $updated = ($this->patient->updatePatient($patient, $patientId));
     if ($updated) {
       return $updated;
     }
     else {
       return false;
     }
-  }
-  function logout() {
-
-    $this->session->unset_userdata('logged_in');
-    session_destroy();
-    redirect('login', 'refresh');
   }
 
 }
