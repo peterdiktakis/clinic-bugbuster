@@ -93,9 +93,9 @@ class ReceptionRegistration extends CI_Controller
         'RAMQ_ID' => $ramq
       );
     }
-
     else {
-      //TODO What does this do?
+      //Else that means we have an array of the database record.
+      //Make the database record be the main array.
       return array_merge($patient);
     }
   }
@@ -113,82 +113,63 @@ class ReceptionRegistration extends CI_Controller
 
     $this->load->view('header', $headerData);
 
-    $medications = array (
-    '1' => 'Benzamycin',
-    '2' => 'Accutane',
-    '3' => 'Tamiflu',
-    '4' => 'Acetaminophen',
-    '5' => 'Advil',
-    '6' => 'Levaquin',
-    '7' => 'Vioxx',
-    '8' => 'Celebrex',
-    '9' => 'Zyprexa',
-    '11' => 'Paxil',
-    '12' => 'Nicoderm',
-    '13' => 'Lorazepam',
-    '14' => 'Elidel',
-    '15' => 'Pegasys',
-    '16' => 'Clikstar',
-    '17' => 'Levaquin',
-    '18' => 'Advair Diskus',
-    '19' => 'Nexium',
-    '20' => 'Kenalog'
-  );
+    $this->load->helper('getmedications');
+    $medications = getMedications();
 
-  $data['medications'] = $medications;
-  $data['patient'] = $patient;
+    $data['medications'] = $medications;
+    $data['patient'] = $patient;
 
-  $this->load->view('receptionregistration', $data);
+    $this->load->view('receptionregistration', $data);
 
-  $this->load->view('footer');
-}
-
-function addToTriage($visitId) {
-  // create instance of the queue model
-  $this->load->model('queue');
-  $inserted = $this->queue->addToQueue($visitId, 'TRIAGE');
-  return $inserted;
-}
-
-function addVisit($patient_id) {
-  // create instance of visit model
-  $this->load->model('visit');
-  $visitId = ($this->visit->addVisit($patient_id));
-  return $visitId;
-}
-
-function addPatient($patient) {
-  // create instance of user model
-
-  $this->load->model('patient');
-  // add the patient to the db using the model, returning the patient id.
-  $patient_id = ($this->patient->addPatient($patient));
-  if ($patient_id) {
-    return $patient_id;
-  }
-  else {
-    return false;
+    $this->load->view('footer');
   }
 
-}
-
-function updatePatient($patient, $patient_id) {
-  // create instance of user model
-  $this->load->model('patient');
-  $updated = ($this->patient->updatePatient($patient, $patient_id));
-  if ($updated) {
-    return $updated;
+  function addToTriage($visitId) {
+    // create instance of the queue model
+    $this->load->model('queue');
+    $inserted = $this->queue->addToQueue($visitId, 'TRIAGE');
+    return $inserted;
   }
-  else {
-    return false;
-  }
-}
-function logout() {
 
-  $this->session->unset_userdata('logged_in');
-  session_destroy();
-  redirect('login', 'refresh');
-}
+  function addVisit($patient_id) {
+    // create instance of visit model
+    $this->load->model('visit');
+    $visitId = ($this->visit->addVisit($patient_id));
+    return $visitId;
+  }
+
+  function addPatient($patient) {
+    // create instance of user model
+
+    $this->load->model('patient');
+    // add the patient to the db using the model, returning the patient id.
+    $patient_id = ($this->patient->addPatient($patient));
+    if ($patient_id) {
+      return $patient_id;
+    }
+    else {
+      return false;
+    }
+
+  }
+
+  function updatePatient($patient, $patient_id) {
+    // create instance of user model
+    $this->load->model('patient');
+    $updated = ($this->patient->updatePatient($patient, $patient_id));
+    if ($updated) {
+      return $updated;
+    }
+    else {
+      return false;
+    }
+  }
+  function logout() {
+
+    $this->session->unset_userdata('logged_in');
+    session_destroy();
+    redirect('login', 'refresh');
+  }
 
 }
 
