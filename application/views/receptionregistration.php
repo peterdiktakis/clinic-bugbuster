@@ -99,7 +99,7 @@
         foreach($medications as $item => $value) {
           if (isset($patient['MEDICATION_3'])) {
             if ($value == $patient['MEDICATION_3'])
-            echo "<option selected='selected'>$value</option>";
+              echo "<option selected='selected'>$value</option>";
             else {
               echo "<option>$value</option>";
             }
@@ -108,12 +108,18 @@
             echo "<option>$value</option>";
           }
         }
-        echo "</select></div></div></div>";
+        ?>
+      </select>
+    </div>
+  </div>
+</div>
 
-
-        echo "<div class='form-group'><div class='row'><div class='col-sm-2'>";
-          echo "<button type='submit' class='btn btn-primary' value='Submit'>Add to Queue</button></div>";
-          echo "</div></div></div>";
-          ?>
+<div class='form-group'>
+  <div class='row'>
+    <div class='col-sm-2'>
+      <button type='submit' class='btn btn-primary' value='Submit'>Add Patient To Triage Queue <span class="glyphicon glyphicon-arrow-right"></span></button></div>
+    </div>
+  </div>
+</div>
 </form>
 </div>
