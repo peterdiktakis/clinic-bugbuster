@@ -42,7 +42,7 @@ Class Queue extends CI_Model {
     $queue = $this->getQueue($queueName);
 
     //If the queue has content, dequeue the next patient.
-    if ($queue->count() > 0) {
+    if ($this->getLengthOfQueue($queueName) > 0) {
       $visitId = $queue->dequeue();
     }
     else {
@@ -84,7 +84,7 @@ Class Queue extends CI_Model {
 
     // First get the queue.
     $this->db->select('QUEUE_CONTENT');
-    $this->db->from('queue');
+    $this->db->from('QUEUE');
     $this->db->where('QUEUE_NAME', $queueName);
     $query = $this->db->get()->row_array();
     $queueContent = $query['QUEUE_CONTENT'];
@@ -93,7 +93,7 @@ Class Queue extends CI_Model {
 
     /* If queue is empty, then return the new empty queue.
     */
-    if ($queueContent == '') {
+    if ($query['QUEUE_CONTENT'] == '') {
       return $queue;
     }
     /* Queue isn't empty - de serialize the queue and return

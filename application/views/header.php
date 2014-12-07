@@ -30,7 +30,7 @@
       <ul class="nav navbar-nav">
         <body>
           <?php echo ($this->session->userdata('logged_in')['RECEPTION']) ? "<li>" . anchor('receptionramq', 'Reception') . "</li>" : '' ?>
-          <?php echo ($this->session->userdata('logged_in')['TRIAGE']) ? "<li>" . anchor('triage', 'Triage') . "</li>" : '' ?>
+          <?php echo ($this->session->userdata('logged_in')['TRIAGE']) ? "<li>" . anchor('triageoverview', 'Triage') . "</li>" : '' ?>
           <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('examination', 'Examination') . "</li>" : '' ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">

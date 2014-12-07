@@ -64,7 +64,7 @@ class ReceptionRegistration extends CI_Controller
         $visitId = $this->addVisit($patientId);
 
         //Add the patient to the triage queue.
-        //$test = $this->addToTriage($visitId);
+        $queueInsert = $this->addToTriage($visitId);
 
         //Setup the alert message to let the user know that the patient was successfully added to the queue.
         $message = $patient['firstName'] . " " . $patient['lastName'] . " was added to the triage queue";
@@ -133,7 +133,7 @@ class ReceptionRegistration extends CI_Controller
   function addToTriage($visitId) {
     //Load the queue model.
     $this->load->model('queue');
-    $inserted = $this->queue->addToQueue($visitId, 'TRIAGE');
+    $inserted = $this->queue->addToQueue($visitId, '0');
     return $inserted;
   }
 

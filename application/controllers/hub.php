@@ -29,8 +29,7 @@ class Hub extends CI_Controller
 			$links = array(
 				'reception' => $this->session->userdata('logged_in')['RECEPTION'],
 				'triage' => $this->session->userdata('logged_in')['TRIAGE'],
-				'nurse' => $this->session->userdata('logged_in')['NURSE'],
-				'admin' => $this->session->userdata('logged_in')['ADMIN']
+				'nurse' => $this->session->userdata('logged_in')['NURSE']
 			);
 
 			$headerData = array(

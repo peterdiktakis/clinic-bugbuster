@@ -8,11 +8,11 @@
 	<h2>What is your task for today?</h2>
 
 	<div class="btn-group btn-group-justified" role="group" aria-label="List of tasks.">
-		<?php echo ($reception) ? anchor('receptionramq', 'Reception', array('class' => 'btn btn-success btn-lg btn-block')) : "" ?>
+		<?php echo ($reception) ? anchor('receptionramq', 'Reception', array('class' => 'progress-bar progress-bar-success progress-bar-striped btn btn-success btn-lg btn-block')) : "" ?>
 
-		<?php echo ($triage) ? anchor('triageoverview', 'Triage', array('class' => 'btn btn-info btn-lg btn-lg btn-block')) : "" ?>
+		<?php echo ($triage) ? anchor('triageoverview', 'Triage', array('class' => 'progress-bar progress-bar-info progress-bar-striped btn btn-info btn-lg btn-lg btn-block')) : "" ?>
 
-		<?php echo ($nurse) ? anchor('examinationoverview', 'Examination', array('class' => 'btn btn-warning btn-lg btn-block')) : "" ?>
+		<?php echo ($nurse) ? anchor('examinationoverview', 'Examination', array('class' => 'progress-bar progress-bar-warning progress-bar-striped btn btn-warning btn-lg btn-block')) : "" ?>
 	</div>
 </div>
 

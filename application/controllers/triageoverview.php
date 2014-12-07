@@ -18,51 +18,56 @@ class TriageOverview extends CI_Controller
     // if user is not logged in or does not have receptionist privileges.
     if (!$this->session->userdata('logged_in')['NURSE']) {
       redirect('login', 'refresh');
-    } else {
-      // user hasn't submitted the form.
-      if ($this->form_validation->run() == FALSE) {
-        $this->showTriageOverview();
-      }
-      // redirect to triage screen.
-      else {
-        // form is submitted, remove a patient from the queue.
+    }
+    // user hasn't submitted the form.
+    if ($this->form_validation->run() == FALSE) {
+      $this->showTriageOverview(TRUE);
+    }
+    // redirect to triage screen.
+    else {
+      // form is submitted, remove a patient from the queue.
 
-        $nextVisitId = $this->getNextPatient();
-        // there are no patients in queue.
-        if ($nextVisitId == -1) {
-          $this->showTriageOverview();
-        }
-        // a patient was dequeued from triage queue.
-        else {
-          // the triage screen requires visit ID
-          $this->session->set_flashdata('visit_id', $nextVisitId);
-          redirect("triagepatient", 'refresh');
-        }
+      $nextVisitId = $this->getNextPatient();
+      // there are no patients in queue.
+      if ($nextVisitId == -1) {
+        $this->showTriageOverview(FALSE);
+      }
+      // a patient was dequeued from triage queue.
+      else {
+        // the triage screen requires visit ID
+        $this->session->set_flashdata('visit_id', $nextVisitId);
+        redirect("triagepatient", 'refresh');
       }
     }
   }
 
-  function showTriageOverview() {
+  function showTriageOverview($failed) {
     $headerData = array(
-      'title' => 'CQS - Triage Overview'
+      'title' => 'BugBuster Clinic - Triage'
     );
     $this->load->view('header', $headerData);
 
-    $lengthOfQueue = $this->getLengthOfQueue();
+    $this->load->model('queue');
+    $lengthOfQueue = $this->queue->getLengthOfQueue('0');
 
     $viewData =
     array(
-    'lengthOfQueue' => $lengthOfQueue
+      'lengthOfQueue' => $lengthOfQueue
     );
 
-    $this->load->view('triage_overview_view', $viewData);
+    if($failed)
+      $viewData['error'] = TRUE;
+    else
+      $viewData['error'] = FALSE;
+
+    $this->load->view('triageoverview', $viewData);
 
   }
 
   function getNextPatient() {
     // load queue model.
     $this->load->model('queue');
-    return $this->queue->getNextPatient('0');
+    return $this->queue->getNextPatient("0");
   }
 
   function getLengthOfQueue() {
