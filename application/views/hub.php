@@ -1,5 +1,4 @@
 <div class="header"><h3 class="text-muted">Hub<small class='pull-right' style='margin-right:10px;'>Signed in as <?php echo $this->session->userdata('logged_in')['USER_ID']; ?></small></h3>
-	<!-- end header -->
 </div>
 
 
@@ -15,6 +14,3 @@
 		<?php echo ($nurse) ? anchor('examinationoverview', 'Examination', array('class' => 'progress-bar progress-bar-warning progress-bar-striped btn btn-warning btn-lg btn-block')) : "" ?>
 	</div>
 </div>
-
-
-<!-- end well -->

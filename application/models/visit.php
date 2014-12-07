@@ -24,7 +24,7 @@ Class Visit extends CI_Model {
 		return $query;
 	}
 
-	function getPatientIdByVisitId($visitId) {
+	function findPatientIdByVisitId($visitId) {
 		$this->db->select('PATIENT_ID');
 		$this->db->where('VISIT_ID', $visitId);
 		$query = $this->db->get('VISIT')->row_array();
@@ -33,23 +33,23 @@ Class Visit extends CI_Model {
 	}
 
 	//UPDATE
-	function updateVisitAfterTriage($visitId) {
+	function updateVisitAfterTriage($visitId, $visit) {
 
 		$data = array (
-			'CODE' => $code,
-			'PRIMARY_COMPLAINT' => $primaryComplaint,
-			'SYMPTOM_1' => $symptom_1,
-			'SYMPTOM_2' => $symptom_2
+			'CODE' => $visit['priority'],
+			'PRIMARY_COMPLAINT' => $visit['primaryComplaint'],
+			'SYMPTOM_1' => $visit['symptom1'],
+			'SYMPTOM_2' => $visit['symptom2']
 		);
 
 		$this->db->set('TIME_TRIAGE', 'NOW()', FALSE);
-		$this->db->where('VISIT_ID', $visit_id);
+		$this->db->where('VISIT_ID', $visitId);
 		$this->db->update('VISIT', $data);
 	}
 
 	function updateVisitAfterExamination($visit, $visitId) {
 		$this->db->set('TIME_EXAMINATION', 'NOW()', FALSE);
-		$this->db->where('VISIT_ID', $visit_id);
+		$this->db->where('VISIT_ID', $visitId);
 		$this->db->update('VISIT');
 	}
 

@@ -20,8 +20,8 @@ class TriageOverview extends CI_Controller
       redirect('login', 'refresh');
     }
     // user hasn't submitted the form.
-    if ($this->form_validation->run() == FALSE) {
-      $this->showTriageOverview(TRUE);
+    if (!($this->input->server('REQUEST_METHOD') === 'POST')) {
+      $this->showTriageOverview(FALSE);
     }
     // redirect to triage screen.
     else {
@@ -35,8 +35,8 @@ class TriageOverview extends CI_Controller
       // a patient was dequeued from triage queue.
       else {
         // the triage screen requires visit ID
-        $this->session->set_flashdata('visit_id', $nextVisitId);
-        redirect("triagepatient", 'refresh');
+        $this->session->set_flashdata('visitId', $nextVisitId);
+        redirect("triagedetail", 'refresh');
       }
     }
   }
@@ -67,7 +67,7 @@ class TriageOverview extends CI_Controller
   function getNextPatient() {
     // load queue model.
     $this->load->model('queue');
-    return $this->queue->getNextPatient("0");
+    return $this->queue->getNextPatient('0');
   }
 
   function getLengthOfQueue() {

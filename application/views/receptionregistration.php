@@ -116,10 +116,9 @@
 
 <div class='form-group'>
   <div class='row'>
-    <div class='col-sm-2'>
-      <button type='submit' class='btn btn-primary' value='Submit'>Add Patient To Triage Queue <span class="glyphicon glyphicon-arrow-right"></span></button></div>
+    <div class='col-md-4'>
+      <button type='submit' class='btn btn-primary col-sm-offset-7' value='Submit'>Add Patient To Triage Queue <span class="glyphicon glyphicon-arrow-right"></span></button></div>
     </div>
   </div>
 </div>
 </form>
-</div>

@@ -22,7 +22,7 @@ Class Patient extends CI_Model {
 		}
 
 		//READ
-		function getPatientById($patient_id) {
+		function findPatientById($patient_id) {
 			$this->db->where('PATIENT_ID', $patient_id);
 			$query = $this->db->get('PATIENT')->row_array();
 			return $query;
