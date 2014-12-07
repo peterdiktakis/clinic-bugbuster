@@ -12,7 +12,7 @@
       echo " Something horrible happened. :( </div>";
     }?>
 
-    <div class='alert alert-<?php echo ($lengthOfQueue > 0) ? "warning' role='alert'> <span class = 'glyphicon glyphicon-asterisk'></span> There are patients waiting to be triaged. <strong>Get to work!</strong>" : "info' role='alert'><span class='glyphicon glyphicon-ok'></span> There are no patients currently waiting to be triaged. Please communicate with a receptionist and refresh the page." ?></div>
+    <div class='alert alert-<?php echo ($lengthOfQueue > 0) ? "warning' role='alert'> <span class = 'glyphicon glyphicon-asterisk'></span> There are patients waiting to be triaged. <strong>Get to work!</strong>" : "info' role='alert'><span class='glyphicon glyphicon-ok'></span> There are no patients currently waiting to be triaged. Please communicate with a receptionist and refresh the page. " . anchor('triageoverview', "Refresh <span class='glyphicon glyphicon-refresh'></span>", array('class' => 'btn btn-default')) ?></div>
 
     <div class='form-group'>
     <button type='submit' class='btn-primary btn-lg btn-block' aria-label='Left Align' <?php echo ($lengthOfQueue > 0) ? "" : "disabled='disabled'" ?>>Get Next Patient
@@ -21,3 +21,4 @@
     </div>
 
   </div>
+</div>
