@@ -38,7 +38,7 @@ Class Queue extends CI_Model {
 
   }
 
-  function getNextPatient($queueName) {
+  function getNextPatientFromQueue($queueName) {
     $queue = $this->getQueue($queueName);
 
     //If the queue has content, dequeue the next patient.
@@ -54,6 +54,21 @@ Class Queue extends CI_Model {
     }
 
     return $visitId;
+  }
+
+  function findNextQueueToPullFrom() {
+    $firstQueue = $this->getQueue('1');
+    if($firstQueue->count() > 0) {
+        return 1;
+    }
+    $frequencyArray = array(2, 3, 2, 4, 3, 2, 5, 2, 3, 4);
+    $this->load->model('system');
+    $systemCounter = $this->system->getCurrentPosition();
+    while(($i = $this->system->incrementPosition()) != $systemCounter) {
+      $queueName = "$frequencyArray[$i]";
+      if($this->getLengthOfQueue("$queueName") != 0)
+        return $queueName;
+    }
   }
 
   function addToQueue($visitId, $queueName) {
@@ -81,7 +96,6 @@ Class Queue extends CI_Model {
 
   }
   private function getQueue($queueName) {
-
     // First get the queue.
     $this->db->select('QUEUE_CONTENT');
     $this->db->from('QUEUE');

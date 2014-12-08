@@ -1,15 +1,14 @@
 <?php
 Class System extends CI_Model {
   function getCurrentPosition() {
-    $this->db->select('QUEUE_CONTENT');
-    $query->db->get('SYSTEM')->row_array();
+    $query = $this->db->get('SYSTEM')->row_array();
     $currentPosition = $query['CURRENT_POSITION'];
 
     return $currentPosition;
   }
 
   function incrementPosition() {
-    $position = getCurrentPosition();
+    $currentPosition = $this->getCurrentPosition();
     $currentPosition++;
 
     if ($currentPosition == 9) {

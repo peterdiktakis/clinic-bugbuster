@@ -22,7 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <?php echo ($this->session->userdata('logged_in')) ? anchor('hub', 'BugBuster Clinic', array('class' => 'navbar-brand')) : anchor('login', 'BugBusterClinic', array('class' => 'navbar-brand')) ?>
+      <?php echo ($this->session->userdata('logged_in')) ? anchor('hub', 'BugBuster Clinic', array('class' => 'navbar-brand')) : anchor('login', 'BugBuster Clinic', array('class' => 'navbar-brand')) ?>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -31,7 +31,7 @@
         <body>
           <?php echo ($this->session->userdata('logged_in')['RECEPTION']) ? "<li>" . anchor('receptionramq', 'Reception') . "</li>" : '' ?>
           <?php echo ($this->session->userdata('logged_in')['TRIAGE']) ? "<li>" . anchor('triageoverview', 'Triage') . "</li>" : '' ?>
-          <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('examination', 'Examination') . "</li>" : '' ?>
+          <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('examinationoverview', 'Examination') . "</li>" : '' ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php echo ($this->session->userdata('logged_in')) ? "<li>" . anchor('login/logout', 'Logout') . "</li>" : '' ?>

@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
 exit('No direct script access allowed');
 
-class TriageOverview extends CI_Controller
+class ExaminationOverview extends CI_Controller
 {
   function __construct()
   {
@@ -16,7 +16,7 @@ class TriageOverview extends CI_Controller
     <span class='sr-only'>Error:</span>", '</div>');
 
     //Check to make sure the user logged in has access to this page.
-    if (!$this->session->userdata('logged_in')['TRIAGE']) {
+    if (!$this->session->userdata('logged_in')['NURSE']) {
       redirect('login', 'refresh');
     }
     //If the request method is not post on load, the page hasn't been submitted yet. (First run)
@@ -35,7 +35,7 @@ class TriageOverview extends CI_Controller
       else {
         //Pass the information to the next screen and redirect.
         $this->session->set_flashdata('visitId', $nextVisitId);
-        redirect("triagedetail", 'refresh');
+        redirect("examinationoverview", 'refresh');
       }
     }
   }
@@ -43,16 +43,31 @@ class TriageOverview extends CI_Controller
   function showTriageOverview($failed) {
     //Set the page header.
     $headerData = array(
-      'title' => 'BugBuster Clinic - Triage'
+      'title' => 'BugBuster Clinic - Examination'
     );
     $this->load->view('header', $headerData);
 
-    //Get the length of the triage queue for display on the page.
-    $lengthOfQueue = $this->getLengthOfTriageQueue();
+    $queueLengths = array();
+    $totalLengthOfQueues = 0;
+
+    //Get the length of each of the queues.
+    for($i = 1; $i < 6; $i++) {
+      $queueLength = $this->getLengthOfQueue($i);
+      $queueLengths["$i"] = "$queueLength";
+      $totalLengthOfQueues += $queueLength;
+    }
+
+    //Weigh the queues against eachother for the progress bars.
+    $queueViewPercentages = array();
+    if($totalLengthOfQueues != 0)
+      for($i = 1; $i < 6; $i++)
+        $queueViewPercentages["$i"] = $queueLengths["$i"] / $totalLengthOfQueues * 100;
 
     //Add the queue length to the page data.
     $viewData = array(
-      'lengthOfQueue' => $lengthOfQueue
+    'totalLengthOfQueues' => $totalLengthOfQueues,
+    'queueLengths' => $queueLengths,
+    'queueViewPercentages' => $queueViewPercentages
     );
 
     //The failed variable will be true when the page was submitted, but no one was dequeued.
@@ -61,18 +76,19 @@ class TriageOverview extends CI_Controller
     $viewData['error'] = $failed;
 
     //Load the view sending in the view data.
-    $this->load->view('triageoverview', $viewData);
+    $this->load->view('examinationoverview', $viewData);
 
   }
 
   function getNextPatient() {
     $this->load->model('queue');
-    return $this->queue->getNextPatientFromQueue('0');
+    $queueName = $this->queue->findNextQueueToPullFrom();
+    return $this->queue->getNextPatientFromQueue("$queueName");
   }
 
-  function getLengthOfTriageQueue() {
+  function getLengthOfQueue($queueName) {
     $this->load->model('queue');
-    return $this->queue->getLengthOfQueue('0');
+    return $this->queue->getLengthOfQueue($queueName);
   }
 
 } // end class

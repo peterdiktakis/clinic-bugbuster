@@ -3,13 +3,12 @@
 
 <div class ="well">
 
-  <?php echo form_open('triageoverview'); ?>
-  <div class='form' role='form'>
-    <?php echo validation_errors(); ?>
+  <?php echo form_open('triageoverview', array('role' => 'form')); ?>
+  <?php echo validation_errors(); ?>
     <?php if ($error) {
       echo "<div class='alert alert-danger' role='alert'>
       <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
-      echo " Something horrible happened. :( </div>";
+      echo " There was no one to dequeue. </div>";
     }?>
 
     <div class='alert alert-<?php echo ($lengthOfQueue > 0) ? "warning' role='alert'> <span class = 'glyphicon glyphicon-asterisk'></span> There are patients waiting to be triaged. <strong>Get to work!</strong>" : "info' role='alert'><span class='glyphicon glyphicon-ok'></span> There are no patients currently waiting to be triaged. Please communicate with a receptionist and refresh the page. " . anchor('triageoverview', "Refresh <span class='glyphicon glyphicon-refresh'></span>", array('class' => 'btn btn-default')) ?></div>
@@ -19,6 +18,6 @@
     <span class='badge'><?php echo $lengthOfQueue ?></span>
     </button>
     </div>
-
+  </form>
   </div>
 </div>
