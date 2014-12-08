@@ -32,6 +32,7 @@
           <?php echo ($this->session->userdata('logged_in')['RECEPTION']) ? "<li>" . anchor('receptionramq', 'Reception') . "</li>" : '' ?>
           <?php echo ($this->session->userdata('logged_in')['TRIAGE']) ? "<li>" . anchor('triageoverview', 'Triage') . "</li>" : '' ?>
           <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('examinationoverview', 'Examination') . "</li>" : '' ?>
+          <?php echo ($this->session->userdata('logged_in')['NURSE']) ? "<li>" . anchor('waitstring', 'Wait String') . "</li>" : '' ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php echo ($this->session->userdata('logged_in')) ? "<li>" . anchor('login/logout', 'Logout') . "</li>" : '' ?>

@@ -6,10 +6,17 @@
   <?php echo form_open('triageoverview', array('role' => 'form')); ?>
   <?php echo validation_errors(); ?>
     <?php if ($error) {
-      echo "<div class='alert alert-danger' role='alert'>
-      <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
-      echo " There was no one to dequeue. </div>";
-    }?>
+        echo "<div class='alert alert-danger' role='alert'>
+        <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
+        echo " There was no one to dequeue. </div>";
+      }
+      if ($added) {
+        //$added is a variable that comes from the header data.
+        echo "<div class='alert alert-success' role='alert'>
+        <span class='glyphicon glyphicon-user' aria-hidden='true'></span>";
+        echo " $added </div>";
+      }
+    ?>
 
     <div class='alert alert-<?php echo ($lengthOfQueue > 0) ? "warning' role='alert'> <span class = 'glyphicon glyphicon-asterisk'></span> There are patients waiting to be triaged. <strong>Get to work!</strong>" : "info' role='alert'><span class='glyphicon glyphicon-ok'></span> There are no patients currently waiting to be triaged. Please communicate with a receptionist and refresh the page. " . anchor('triageoverview', "Refresh <span class='glyphicon glyphicon-refresh'></span>", array('class' => 'btn btn-default')) ?></div>
 

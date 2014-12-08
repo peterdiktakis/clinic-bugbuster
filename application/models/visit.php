@@ -47,7 +47,7 @@ Class Visit extends CI_Model {
 		$this->db->update('VISIT', $data);
 	}
 
-	function updateVisitAfterExamination($visit, $visitId) {
+	function updateVisitAfterExamination($visitId) {
 		$this->db->set('TIME_EXAMINATION', 'NOW()', FALSE);
 		$this->db->where('VISIT_ID', $visitId);
 		$this->db->update('VISIT');

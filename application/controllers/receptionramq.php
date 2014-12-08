@@ -21,15 +21,7 @@ class ReceptionRAMQ extends CI_Controller {
 
     //Check to see if the user that is currently logged in has reception privileges.
     if (!$this->session->userdata('logged_in')['RECEPTION']) {
-      //If they don't, check to see if they're at least logged in.
-      if(!$this->session->userdata('logged_in')) {
-        //If they're not, redirect them to the login page.
         redirect('login', 'refresh');
-      }
-      else {
-        //Else this means they're logged in, but are trying to acces something they shouldn't be. :-)
-        redirect('hub', 'refresh');
-      }
     }
     //Else that means that whoever is logged in has access to this page.
     else {

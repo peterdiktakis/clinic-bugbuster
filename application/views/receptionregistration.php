@@ -120,5 +120,5 @@
       <button type='submit' class='btn btn-primary col-sm-offset-7' value='Submit'>Add Patient To Triage Queue <span class="glyphicon glyphicon-arrow-right"></span></button></div>
     </div>
   </div>
-</div>
 </form>
+</div>

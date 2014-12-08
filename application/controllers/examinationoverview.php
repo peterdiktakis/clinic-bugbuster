@@ -35,7 +35,7 @@ class ExaminationOverview extends CI_Controller
       else {
         //Pass the information to the next screen and redirect.
         $this->session->set_flashdata('visitId', $nextVisitId);
-        redirect("examinationoverview", 'refresh');
+        redirect("examinationdetail", 'refresh');
       }
     }
   }
@@ -67,7 +67,8 @@ class ExaminationOverview extends CI_Controller
     $viewData = array(
     'totalLengthOfQueues' => $totalLengthOfQueues,
     'queueLengths' => $queueLengths,
-    'queueViewPercentages' => $queueViewPercentages
+    'queueViewPercentages' => $queueViewPercentages,
+    'added' =>  $this->session->flashdata('change')
     );
 
     //The failed variable will be true when the page was submitted, but no one was dequeued.
@@ -81,9 +82,17 @@ class ExaminationOverview extends CI_Controller
   }
 
   function getNextPatient() {
+    //Load the queue model.
     $this->load->model('queue');
+
+    //Find the next queue to pull from.
     $queueName = $this->queue->findNextQueueToPullFrom();
-    return $this->queue->getNextPatientFromQueue("$queueName");
+
+    //If no queue was found, return -1. Else, return the visitId of the patient who is dequeued.
+    if($queueName != -1)
+      return $this->queue->getNextPatientFromQueue("$queueName");
+    else
+      return $queueName;
   }
 
   function getLengthOfQueue($queueName) {
@@ -91,5 +100,4 @@ class ExaminationOverview extends CI_Controller
     return $this->queue->getLengthOfQueue($queueName);
   }
 
-} // end class
-?>
+}?>

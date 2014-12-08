@@ -52,7 +52,8 @@ class TriageOverview extends CI_Controller
 
     //Add the queue length to the page data.
     $viewData = array(
-      'lengthOfQueue' => $lengthOfQueue
+      'lengthOfQueue' => $lengthOfQueue,
+      'added' =>  $this->session->flashdata('change')
     );
 
     //The failed variable will be true when the page was submitted, but no one was dequeued.

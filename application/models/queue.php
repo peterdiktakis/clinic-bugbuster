@@ -7,6 +7,7 @@ Class Queue extends CI_Model {
     return $queue->count();
   }
 
+  //Transaction version of getNextPatientFromQueue. Didn't use because it's too voodoo.
   function getNextVisitId($queueName) {
     //Start a transaction.
     $this->db->trans_start();
@@ -35,7 +36,6 @@ Class Queue extends CI_Model {
 
     //Return the visitId. If the transaction failed, this will return -1.
     return $visitId;
-
   }
 
   function getNextPatientFromQueue($queueName) {
@@ -73,6 +73,23 @@ Class Queue extends CI_Model {
         if($this->getLengthOfQueue("$queueName") != 0)
           return $queueName;
     }
+
+    return -1;
+  }
+
+  function queueContains($visitId, $queueName) {
+
+    if($this->getLengthOfQueue($queueName) == 0)
+      return false;
+
+    $queue = $this->getQueue($queueName);
+    $queue->setIteratorMode(SplDoublyLinkedList::IT_MODE_KEEP);
+
+    foreach($queue as $val)
+      if($val == $visitId)
+        return true;
+
+    return false;
   }
 
   function addToQueue($visitId, $queueName) {

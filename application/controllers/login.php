@@ -19,6 +19,10 @@ class Login extends CI_Controller
     <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
     <span class='sr-only'>Error:</span>", '</div>');
 
+    if($this->session->userdata('logged_in')) {
+      redirect('hub', 'refresh');
+    }
+
     if ($this->form_validation->run() == FALSE) {
       $headerData = array(
         'title' => 'BugBuster Clinic - Login'

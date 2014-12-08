@@ -21,49 +21,44 @@ class TriageDetail extends CI_Controller
     $this->form_validation->set_rules('symptom2', 'Second Symptom', 'trim|required');
     $this->form_validation->set_rules('priority', 'Priority', 'trim|required');
 
-    // read visit id from flash data.
+    //Get the visit id from the session flash data.
     $this->session->keep_flashdata('visitId');
     $visit_id = $this->session->flashdata('visitId');
 
-    // TODO: will need form validation rules...
-
-    // if user is not logged in or does not have receptionist privileges.
-    if (!$this->session->userdata('logged_in')['NURSE']) {
+    //Check to make sure that the user accessing this page has triage privileges.
+    if (!$this->session->userdata('logged_in')['TRIAGE']) {
       redirect('login', 'refresh');
     } else {
-      // user hasn't submitted the form.
+      //If the request method isn't post, display the form.
       if (!($this->input->server('REQUEST_METHOD') === 'POST')) {
-        $this->showTriageForm($visit_id);
+        $this->showTriageDetail($visit_id);
       }
-      // redirect to triage screen.
+      //Else that means the form has been submitted.
       else {
-        // form is submitted
-
-        // if there are form errors.
+        //Check if there are form validation errors.
         if ($this->form_validation->run() == FALSE) {
-          $this->showTriageForm($visit_id);
+          //If there are, redisplay the form.
+          $this->showTriageDetail($visit_id);
         }
-        // no form errors~!!!
+        //Else that means the form submitted fine.
         else {
-          // need to add him to appropriate Queue based on TRIAGE level.
-
+          //Get the queue to place the patient into.
           $queueName = trim(htmlentities($_POST['priority']));
 
+          //Add the patient to the queue.
           $this->addToQueue($visit_id, $queueName);
 
-          $primaryComplaint = trim(htmlentities($_POST['primaryComplaint']));
-          $firstSymptom = trim(htmlentities($_POST['symptom1']));
-          $secondSymptom = trim(htmlentities($_POST['symptom2']));
+          $this->updateVisit($visit_id);
 
-          $this->updateVisit($visit_id, $queueName, $primaryComplaint, $firstSymptom, $secondSymptom);
-
+          //Set the flash data message to display a message on the previous screen indicating that a person was added to the queue.
+          $this->session->set_flashdata('change', "" . $_POST['firstName'] . " " . $_POST['lastName'] . " was successfully triaged." );
           redirect("triageoverview", 'refresh');
         }
       }
     }
   }
 
-  function showTriageForm($visit_id) {
+  function showTriageDetail($visit_id) {
 
     // get patient / registration information.
     // load  model.
@@ -84,9 +79,9 @@ class TriageDetail extends CI_Controller
 
   }
 
-  function updateVisit($visit_id, $queueName, $primaryComplaint, $firstSymptom, $secondSymptom) {
+  function updateVisit($visitId) {
     $this->load->model('visit');
-    $this->visit->updateVisitAfterTriage($visit_id, $_POST);
+    $this->visit->updateVisitAfterTriage($visitId, $_POST);
   }
 
   function addToQueue($visit_id, $queueName) {

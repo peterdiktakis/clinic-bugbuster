@@ -1,8 +1,8 @@
-<div class="header"><h3 class="text-muted">Triage<small class='pull-right' style='margin-right:10px;'>Signed in as <?php echo $this->session->userdata('logged_in')['USER_ID']; ?></small></h3>
+<div class="header"><h3 class="text-muted">Examination<small class='pull-right' style='margin-right:10px;'>Signed in as <?php echo $this->session->userdata('logged_in')['USER_ID']; ?></small></h3>
 </div>
 
 <div class="well">
-  <?php echo form_open('triagedetail', array('role' => 'form'));?>
+  <?php echo form_open('examinationdetail', array('role' => 'form'));?>
   <?php echo validation_errors();?>
   <div class="form-group">
     <div class="row">
@@ -83,7 +83,7 @@
     <div class="row">
       <label class = "col-sm-2 text-center" for="primaryComplaint">Primary Complaint:</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" name="primaryComplaint" placeholder="Primary Complaint">
+        <input readonly="readonly" type="text" class="form-control" name="primaryComplaint" placeholder="Primary Complaint" value="<?php echo (isset($visit['PRIMARY_COMPLAINT']) ? $visit['PRIMARY_COMPLAINT'] : '') ?>">
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
     <div class="row">
       <label class = "col-sm-2 text-center" for="primaryComplaint">Symptom 1:</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" name="symptom1" placeholder="Symptom 1">
+        <input readonly="readonly" type="text" class="form-control" name="symptom1" placeholder="Symptom 1" value="<?php echo (isset($visit['SYMPTOM_1']) ? $visit['SYMPTOM_1'] : '') ?>">
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@
     <div class="row">
       <label class = "col-sm-2 text-center" for="primaryComplaint">Symptom 2:</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" name="symptom2" placeholder="Symptom 2">
+        <input readonly="readonly" type="text" class="form-control" name="symptom2" placeholder="Symptom 2" value="<?php echo (isset($visit['SYMPTOM_2']) ? $visit['SYMPTOM_2'] : '') ?>">
       </div>
     </div>
   </div>
@@ -107,11 +107,7 @@
     <div class = "row">
       <label class = "col-sm-2 text-center" for="priority">Priority:</label>
       <div class="col-sm-6">
-        <select class='form-control' name='priority'>
-          <?php for($i = 1; $i <= 5; $i++)
-                  echo "<option>$i</option>";
-          ?>
-        </select>
+        <input readonly="readonly" type="text" class="form-control" name="priority" placeholder="Priority" value="<?php echo (isset($visit['CODE']) ? $visit['CODE'] : '') ?>">
       </div>
     </div>
   </div>
@@ -119,7 +115,7 @@
   <div class='form-group'>
     <div class='row'>
       <div class='col-md-4'>
-        <button type='submit' class='btn btn-primary col-sm-offset-7' value='Submit'>Triage Patient <span class="glyphicon glyphicon-arrow-right"></span></button></div>
+        <button type='submit' class='btn btn-success col-sm-offset-7' value='Submit'>Release Patient <span class="glyphicon glyphicon-ok"></span></button></div>
       </div>
     </div>
   </form>

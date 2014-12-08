@@ -22,8 +22,8 @@ Class Patient extends CI_Model {
 		}
 
 		//READ
-		function findPatientById($patient_id) {
-			$this->db->where('PATIENT_ID', $patient_id);
+		function findPatientById($patientId) {
+			$this->db->where('PATIENT_ID', $patientId);
 			$query = $this->db->get('PATIENT')->row_array();
 			return $query;
 		}
@@ -41,7 +41,7 @@ Class Patient extends CI_Model {
 		}
 
 		//UPDATE
-		function updatePatient($patient, $patient_id) {
+		function updatePatient($patient, $patientId) {
 
 			$data = array(
 				'RAMQ_ID' => htmlentities(strip_tags($patient['ramq'])),
@@ -55,7 +55,7 @@ Class Patient extends CI_Model {
 				'MEDICATION_2' => htmlentities(strip_tags($patient['medication2'])),
 				'MEDICATION_3' => htmlentities(strip_tags($patient['medication3'])));
 
-				$this->db->where('PATIENT_ID', $patient_id);
+				$this->db->where('PATIENT_ID', $patientId);
 				$this->db->update('PATIENT', $data);
 			}
 
