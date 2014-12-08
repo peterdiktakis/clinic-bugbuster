@@ -61,13 +61,17 @@ Class Queue extends CI_Model {
     if($firstQueue->count() > 0) {
         return 1;
     }
-    $frequencyArray = array(2, 3, 2, 4, 3, 2, 5, 2, 3, 4);
+    $frequencyArray = array('2', '3', '2', '4', '3', '2', '5', '2', '3', '4');
     $this->load->model('system');
     $systemCounter = $this->system->getCurrentPosition();
-    while(($i = $this->system->incrementPosition()) != $systemCounter) {
-      $queueName = "$frequencyArray[$i]";
-      if($this->getLengthOfQueue("$queueName") != 0)
-        return $queueName;
+    $queueName = $frequencyArray[$systemCounter];
+    if($this->getLengthOfQueue("$queueName") != 0)
+      return $queueName;
+    else
+      while(($i = $this->system->incrementPosition()) != $systemCounter) {
+        $queueName = $frequencyArray[$i];
+        if($this->getLengthOfQueue("$queueName") != 0)
+          return $queueName;
     }
   }
 
